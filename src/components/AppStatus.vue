@@ -3,32 +3,17 @@
 </template>
 
 <script>
-import {reactive, computed} from 'vue'
+import {computed} from 'vue'
+import {useStore} from 'vuex'
 
 export default {
   name: 'AppStatus',
   props: ['type'],
   setup (props) {
-    const statuses = reactive({
-      actived: {
-        color: 'primary',
-        text: 'Активен'
-      },
-      done: {
-        color: 'primary',
-        text: 'Завершён'
-      },
-      executed: {
-        color: 'warning',
-        text: 'Выполняется'
-      },
-      canceled: {
-        color: 'danger',
-        text: 'Отменён'
-      }
-    })
+    const store = useStore()
 
-    const status = computed(() => statuses[props.type])
+    const statuses = computed(() => store.getters.allStatuses)
+    const status = computed(() => statuses.value[props.type])
 
     return {
       status

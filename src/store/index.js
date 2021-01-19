@@ -2,14 +2,36 @@ import axios from 'axios'
 import {createStore, createLogger} from 'vuex'
 
 const DB = 'https://vue3-freelance-project-default-rtdb.firebaseio.com/tasks.json'
+
 const store = createStore({
   plugins: [createLogger],
   state () {
     return {
-      tasks: []
+      tasks: [],
+      statuses: {
+        actived: {
+          color: 'primary',
+          text: 'Активен'
+        },
+        done: {
+          color: 'primary',
+          text: 'Завершён'
+        },
+        executed: {
+          color: 'warning',
+          text: 'Выполняется'
+        },
+        canceled: {
+          color: 'danger',
+          text: 'Отменён'
+        }
+      }
     }
   },
   getters: {
+    allStatuses (state) {
+      return state.statuses
+    },
     allTasks (state) {
       return state.tasks.sort((a, b) => a.deadline > b.deadline ? 1 : -1)
     },

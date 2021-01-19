@@ -2,9 +2,11 @@
   <header class="navbar" v-if="visible">
     <h3>Freelance</h3>
     <ul class="navbar-menu">
-      <li><a href="/tasks">Все задачи</a></li>
       <li>
-        <a href="/new">Создать</a>
+        <router-link to="/tasks">Все задачи</router-link>
+      </li>
+      <li>
+        <router-link to="/new">Создать</router-link>
       </li>
     </ul>
   </header>

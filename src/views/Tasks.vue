@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-white center" v-if="!tasks.length">Задач пока нет</h1>
+  <h1 class="text-white center" v-if="tasks.length === 0">Задач пока нет</h1>
   <template v-else>
 
     <h3 class="text-white">Всего активных задач: {{ counter }}</h3>
@@ -25,14 +25,19 @@
 
 <script>
 import AppStatus from '../components/AppStatus'
-import {mapGetters} from 'vuex'
+import {computed} from 'vue'
+import {useStore} from 'vuex'
 
 export default {
-  computed: {
-    ...mapGetters({
-      tasks: 'allTasks',
-      counter: 'activedTasksCount'
-    })
+  setup () {
+    const store = useStore()
+    const tasks = computed(() => store.getters.allTasks)
+    const counter = computed(() => store.getters.activedTasksCount)
+
+    return {
+      tasks,
+      counter
+    }
   },
   components: {AppStatus}
 }

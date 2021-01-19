@@ -3,39 +3,36 @@
 </template>
 
 <script>
+import {reactive, computed} from 'vue'
+
 export default {
   name: 'AppStatus',
   props: ['type'],
-  computed: {
-    status () {
-      return this.statuses[this.type]
-    }
-  },
-  data () {
-    return {
-      statuses: {
-        actived: {
-          color: 'primary',
-          text: 'Активен'
-        },
-        done: {
-          color: 'primary',
-          text: 'Завершён'
-        },
-        executed: {
-          color: 'warning',
-          text: 'Выполняется'
-        },
-        canceled: {
-          color: 'danger',
-          text: 'Отменён'
-        }
+  setup (props) {
+    const statuses = reactive({
+      actived: {
+        color: 'primary',
+        text: 'Активен'
+      },
+      done: {
+        color: 'primary',
+        text: 'Завершён'
+      },
+      executed: {
+        color: 'warning',
+        text: 'Выполняется'
+      },
+      canceled: {
+        color: 'danger',
+        text: 'Отменён'
       }
+    })
+
+    const status = computed(() => statuses[props.type])
+
+    return {
+      status
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

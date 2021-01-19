@@ -11,8 +11,8 @@
     <p><strong>Описание</strong>: {{ task.description }}</p>
     <div>
       <button class="btn"
-              @click="setStatus('executed')"
-              :disabled="task.status === 'executed'"
+              @click="setStatus('pending')"
+              :disabled="task.status === 'pending'"
       >Взять в работу
       </button>
       <button class="btn primary"

@@ -9,7 +9,7 @@ const store = createStore({
     return {
       tasks: [],
       statuses: {
-        actived: {
+        active: {
           color: 'primary',
           text: 'Активен'
         },
@@ -17,7 +17,7 @@ const store = createStore({
           color: 'primary',
           text: 'Завершён'
         },
-        executed: {
+        pending: {
           color: 'warning',
           text: 'Выполняется'
         },
@@ -34,18 +34,32 @@ const store = createStore({
     },
     allStatusesArray (state) {
       return Object.keys(state.statuses)
+      /* return Object.keys(state.statuses).map(key => {
+        return {
+          key: key,
+          values: state.statuses[key]
+        }
+      }) */
     },
+
     allTasks (state) {
       return state.tasks.sort((a, b) => a.deadline > b.deadline ? 1 : -1)
     },
     activedTasks (state) {
-      return state.tasks.filter(task => task.status === 'actived')
+      return state.tasks.filter(task => task.status === 'active')
     },
     activedTasksCount (state, getters) {
       return getters.activedTasks.length
     },
     getTask: (state) => id => {
       return state.tasks.find(task => task.id === id)
+    },
+    taskByType: (state) => status => {
+      console.log({status})
+      if (!status) {
+        return state.tasks
+      }
+      return state.tasks.filter(task => task.status === status)
     }
   },
   mutations: {

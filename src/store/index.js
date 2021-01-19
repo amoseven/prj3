@@ -32,6 +32,9 @@ const store = createStore({
     allStatuses (state) {
       return state.statuses
     },
+    allStatusesArray (state) {
+      return Object.keys(state.statuses)
+    },
     allTasks (state) {
       return state.tasks.sort((a, b) => a.deadline > b.deadline ? 1 : -1)
     },

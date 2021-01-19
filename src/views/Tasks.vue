@@ -3,6 +3,12 @@
   <template v-else>
 
     <h3 class="text-white">Всего активных задач: {{ counter }}</h3>
+
+    <!--    <div class="card">
+          <AppStatus v-for="status in statuses" :key="status" :type="status"/>
+        </div>
+    -->
+
     <div class="card" v-for="task in tasks" :key="task.id">
       <h2 class="card-title">
         {{ task.name }}
@@ -33,10 +39,14 @@ export default {
     const store = useStore()
     const tasks = computed(() => store.getters.allTasks)
     const counter = computed(() => store.getters.activedTasksCount)
+    const statuses = computed(() => store.getters.allStatusesArray)
+
+    console.log({statuses})
 
     return {
       tasks,
-      counter
+      counter,
+      statuses
     }
   },
   components: {AppStatus}

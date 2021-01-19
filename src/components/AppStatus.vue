@@ -10,7 +10,7 @@ export default {
   props: ['type'],
   setup (props) {
     const statuses = reactive({
-      actived: {
+      active: {
         color: 'primary',
         text: 'Активен'
       },
@@ -18,7 +18,7 @@ export default {
         color: 'primary',
         text: 'Завершён'
       },
-      executed: {
+      pending: {
         color: 'warning',
         text: 'Выполняется'
       },

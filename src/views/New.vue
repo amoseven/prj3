@@ -47,7 +47,7 @@ export default {
         name: this.name,
         deadline: this.deadline,
         description: this.description,
-        status: new Date(this.deadline) < new Date() ? 'canceled' : 'actived'
+        status: new Date(this.deadline) < new Date() ? 'canceled' : 'active'
       }
       await this.$store.dispatch('add', task)
       await this.$router.push('/tasks')

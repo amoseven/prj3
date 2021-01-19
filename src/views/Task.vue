@@ -1,5 +1,8 @@
 <template>
-  <div class="card" v-if="task">
+  <h3 class="text-white center" v-if="!id">
+    Задачи с id = <strong>{{ id }}</strong> нет.
+  </h3>
+  <div class="card" v-else-if="task">
     <h2>{{ task.name }}</h2>
     <p><strong>Статус</strong>:
       <AppStatus :type="task.status"/>
@@ -24,32 +27,34 @@
       </button>
     </div>
   </div>
-  <h3 class="text-white center" v-else>
-    Задачи с id = <strong>{{ id }}</strong> нет.
-  </h3>
+
 </template>
 
 <script>
 import AppStatus from '../components/AppStatus'
-import {mapGetters, mapActions} from 'vuex'
+import {computed} from 'vue'
+import {useStore} from 'vuex'
+import {useRoute} from 'vue-router'
 
 export default {
-  computed: {
-    ...mapGetters(['getTask']),
-    id () {
-      return this.$route.params.id || null
-    },
-    task () {
-      return this.getTask(this.id)
-    }
-  },
-  methods: {
-    ...mapActions(['setTaskStatus']),
-    async setStatus (status) {
-      await this.setTaskStatus({
-        ...this.task,
+  setup () {
+    const store = useStore()
+    const route = useRoute()
+
+    const id = computed(() => route.params.id || null)
+    const task = computed(() => store.getters.getTask(id.value))
+
+    function setStatus (status) {
+      store.dispatch('setTaskStatus', {
+        ...task.value,
         status
       })
+    }
+
+    return {
+      id,
+      task,
+      setStatus
     }
   },
   components: {AppStatus}

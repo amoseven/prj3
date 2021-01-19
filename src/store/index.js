@@ -63,10 +63,13 @@ const store = createStore({
       }
     },
     async setTaskStatus (context, payload) {
-      const id = payload.id
-      delete payload.id
       const task = {
-        [id]: {...payload}
+        [payload.id]: {
+          deadline: payload.deadline,
+          description: payload.description,
+          name: payload.name,
+          status: payload.status
+        }
       }
 
       try {

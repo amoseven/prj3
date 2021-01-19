@@ -14,7 +14,7 @@ const store = createStore({
       return state.tasks.sort((a, b) => a.deadline > b.deadline ? 1 : -1)
     },
     activedTasks (state) {
-      return state.tasks.filter(task => task.status === 'actived')
+      return state.tasks.filter(task => task.status === 'active')
     },
     activedTasksCount (state, getters) {
       return getters.activedTasks.length

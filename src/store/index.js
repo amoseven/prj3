@@ -10,9 +10,6 @@ const store = createStore({
     }
   },
   getters: {
-    getCounter (state) {
-      return state.counter * 3
-    },
     allTasks (state) {
       return state.tasks.sort((a, b) => a.deadline > b.deadline ? 1 : -1)
     },

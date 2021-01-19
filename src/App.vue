@@ -1,7 +1,7 @@
 <template>
   <the-navbar></the-navbar>
   <div class="container with-nav">
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
@@ -9,6 +9,9 @@
 import TheNavbar from './components/TheNavbar'
 
 export default {
+  async mounted () {
+    await this.$store.dispatch('get')
+  },
   components: {
     TheNavbar
   }
